@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-const API_BASE_URL = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api`;
+const API_BASE = "https://-8000.app.github.dev/api";
 
 function Activities() {
   const [activities, setActivities] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/activities/`)
+    fetch(`${API_BASE}/activities`)
       .then(res => res.json())
-      .then(data => setActivities(data.results || data));
+      .then(data => setActivities(data.results || data))
+      .catch(err => console.error(err));
   }, []);
 
   return (

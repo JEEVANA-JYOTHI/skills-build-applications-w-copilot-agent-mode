@@ -1,15 +1,26 @@
 import React, { useEffect, useState } from "react";
 
-const API_BASE_URL = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api`;
+const API_BASE = "https://-8000.app.github.dev/api";
 
-export default function Teams() {
+function Teams() {
   const [teams, setTeams] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/teams/`)
+    fetch(`${API_BASE}/teams`)
       .then(res => res.json())
       .then(data => setTeams(data.results || data));
   }, []);
 
-  return <div>Teams</div>;
+  return (
+    <div>
+      <h2>Teams</h2>
+      <ul>
+        {teams.map(t => (
+          <li key={t.id}>{t.id}</li>
+        ))}
+      </ul>
+    </div>
+  );
 }
+
+export default Teams;

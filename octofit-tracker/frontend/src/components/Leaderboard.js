@@ -1,15 +1,26 @@
 import React, { useEffect, useState } from "react";
 
-const API_BASE_URL = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api`;
+const API_BASE = "https://-8000.app.github.dev/api";
 
-export default function Leaderboard() {
-  const [leaders, setLeaders] = useState([]);
+function Leaderboard() {
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/leaderboard/`)
+    fetch(`${API_BASE}/leaderboard`)
       .then(res => res.json())
-      .then(data => setLeaders(data.results || data));
+      .then(data => setItems(data.results || data));
   }, []);
 
-  return <div>Leaderboard</div>;
+  return (
+    <div>
+      <h2>Leaderboard</h2>
+      <ul>
+        {items.map(i => (
+          <li key={i.id}>{i.id}</li>
+        ))}
+      </ul>
+    </div>
+  );
 }
+
+export default Leaderboard;
