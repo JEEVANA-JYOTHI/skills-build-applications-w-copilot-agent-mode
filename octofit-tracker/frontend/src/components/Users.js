@@ -1,34 +1,33 @@
 import React, { useEffect, useState } from "react";
 
-const API_BASE = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api`;
-
 function Users() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const url = `${API_BASE}/users/`;
-    console.log("Fetching Users from:", url);
-
-    fetch(url)
+    console.log("Fetching Users from /api/users/");
+    fetch("/api/users/")
       .then(res => res.json())
       .then(data => {
         console.log("Users data:", data);
         setUsers(data.results || data);
-      });
+      })
+      .catch(err => console.error(err));
   }, []);
 
   return (
     <div>
       <h2>Users</h2>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>{user.id}</li>
-        ))}
-      </ul>
+      <table className="table table-bordered">
+        <tbody>
+          {users.map(item => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
 
 export default Users;
-
-
