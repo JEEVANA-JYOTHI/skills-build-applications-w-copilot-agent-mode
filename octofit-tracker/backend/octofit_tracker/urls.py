@@ -1,25 +1,23 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.http import JsonResponse
-import os
+from rest_framework import routers
 
-def api_root(request):
-    codespace = os.getenv("CODESPACE_NAME")
-    if codespace:
-        base_url = f"https://{codespace}-8000.app.github.dev"
-    else:
-        base_url = "http://localhost:8000"
+from .api import (
+    UserViewSet,
+    TeamViewSet,
+    WorkoutViewSet,
+    ActivityViewSet,
+    LeaderboardViewSet,
+)
 
-    return JsonResponse({
-        "users": f"{base_url}/api/users/",
-        "teams": f"{base_url}/api/teams/",
-        "activities": f"{base_url}/api/activities/",
-        "leaderboard": f"{base_url}/api/leaderboard/",
-        "workouts": f"{base_url}/api/workouts/",
-    })
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'teams', TeamViewSet)
+router.register(r'workouts', WorkoutViewSet)
+router.register(r'activities', ActivityViewSet)
+router.register(r'leaderboard', LeaderboardViewSet)
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", api_root),
-    path("api/", include("octofit_tracker.api")),
+    path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
 ]
