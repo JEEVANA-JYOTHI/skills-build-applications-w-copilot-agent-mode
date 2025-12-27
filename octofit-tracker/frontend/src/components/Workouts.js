@@ -1,33 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-function Workouts() {
+const API_BASE_URL = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api`;
+
+export default function Workouts() {
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
-    console.log("Fetching Workouts from /api/workouts/");
-    fetch("/api/workouts/")
+    fetch(`${API_BASE_URL}/workouts/`)
       .then(res => res.json())
-      .then(data => {
-        console.log("Workouts data:", data);
-        setWorkouts(data.results || data);
-      })
-      .catch(err => console.error(err));
+      .then(data => setWorkouts(data.results || data));
   }, []);
 
-  return (
-    <div>
-      <h2>Workouts</h2>
-      <table className="table table-bordered">
-        <tbody>
-          {workouts.map(item => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+  return <div>Workouts</div>;
 }
-
-export default Workouts;

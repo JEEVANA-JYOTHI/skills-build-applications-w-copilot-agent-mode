@@ -1,31 +1,24 @@
 import React, { useEffect, useState } from "react";
 
+const API_BASE_URL = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api`;
+
 function Activities() {
   const [activities, setActivities] = useState([]);
 
   useEffect(() => {
-    console.log("Fetching Activities from /api/activities/");
-    fetch("/api/activities/")
+    fetch(`${API_BASE_URL}/activities/`)
       .then(res => res.json())
-      .then(data => {
-        console.log("Activities data:", data);
-        setActivities(data.results || data);
-      })
-      .catch(err => console.error(err));
+      .then(data => setActivities(data.results || data));
   }, []);
 
   return (
     <div>
       <h2>Activities</h2>
-      <table className="table table-bordered">
-        <tbody>
-          {activities.map(item => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <ul>
+        {activities.map(a => (
+          <li key={a.id}>{a.id}</li>
+        ))}
+      </ul>
     </div>
   );
 }
