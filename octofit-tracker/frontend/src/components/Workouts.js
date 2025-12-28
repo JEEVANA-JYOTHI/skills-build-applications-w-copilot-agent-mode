@@ -4,7 +4,7 @@ function Workouts() {
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
-    fetch("https://8000.app.github.dev/api/workouts")
+    fetch("https://codespace-8000.app.github.dev/api/workouts")
       .then(res => res.json())
       .then(data => setWorkouts(data.results || data))
       .catch(err => console.error(err));

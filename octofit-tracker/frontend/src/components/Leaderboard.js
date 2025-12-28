@@ -4,18 +4,17 @@ function Leaderboard() {
   const [leaders, setLeaders] = useState([]);
 
   useEffect(() => {
-    fetch("https://8000.app.github.dev/api/leaderboard")
+    fetch("https://codespace-8000.app.github.dev/api/leaderboard")
       .then(res => res.json())
-      .then(data => setLeaders(data.results || data))
-      .catch(err => console.error(err));
+      .then(data => setLeaders(data.results || data));
   }, []);
 
   return (
     <div>
       <h2>Leaderboard</h2>
       <ul>
-        {leaders.map(item => (
-          <li key={item.id}>{item.id}</li>
+        {leaders.map(l => (
+          <li key={l.id}>{l.id}</li>
         ))}
       </ul>
     </div>
