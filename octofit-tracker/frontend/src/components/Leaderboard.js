@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
 
-const API_BASE = "https://-8000.app.github.dev/api";
-
 function Leaderboard() {
-  const [items, setItems] = useState([]);
+  const [leaders, setLeaders] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_BASE}/leaderboard`)
+    fetch("https://8000.app.github.dev/api/leaderboard")
       .then(res => res.json())
-      .then(data => setItems(data.results || data));
+      .then(data => setLeaders(data.results || data))
+      .catch(err => console.error(err));
   }, []);
 
   return (
     <div>
       <h2>Leaderboard</h2>
       <ul>
-        {items.map(i => (
-          <li key={i.id}>{i.id}</li>
+        {leaders.map(item => (
+          <li key={item.id}>{item.id}</li>
         ))}
       </ul>
     </div>

@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
 
-const API_BASE = "https://-8000.app.github.dev/api";
-
 function Users() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_BASE}/users`)
+    fetch("https://8000.app.github.dev/api/users")
       .then(res => res.json())
-      .then(data => setUsers(data.results || data));
+      .then(data => setUsers(data.results || data))
+      .catch(err => console.error(err));
   }, []);
 
   return (
     <div>
       <h2>Users</h2>
       <ul>
-        {users.map(u => (
-          <li key={u.id}>{u.id}</li>
+        {users.map(item => (
+          <li key={item.id}>{item.id}</li>
         ))}
       </ul>
     </div>

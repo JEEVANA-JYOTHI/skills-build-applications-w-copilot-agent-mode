@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
 
-const API_BASE = "https://-8000.app.github.dev/api";
-
 function Workouts() {
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_BASE}/workouts`)
+    fetch("https://8000.app.github.dev/api/workouts")
       .then(res => res.json())
-      .then(data => setWorkouts(data.results || data));
+      .then(data => setWorkouts(data.results || data))
+      .catch(err => console.error(err));
   }, []);
 
   return (
     <div>
       <h2>Workouts</h2>
       <ul>
-        {workouts.map(w => (
-          <li key={w.id}>{w.id}</li>
+        {workouts.map(item => (
+          <li key={item.id}>{item.id}</li>
         ))}
       </ul>
     </div>
